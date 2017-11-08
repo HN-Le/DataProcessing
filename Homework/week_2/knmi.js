@@ -1,49 +1,34 @@
-<<<<<<< HEAD
-
-
 // Put text into a variable
 var data = document.getElementById("rawdata").value;
 
 // Split data by line
 var data2 = data.split('\n');
-console.log(data2)
+//console.log("Data per line, ", data2)
 
 // Make empty arrays to store date and temp
 var date = [];
 var maxTemp = [];
-console.log(date)
 
 // Split data into date and max temperature
 for (var i = 2; i < data2.length; i++) {
     var singleDate = data2[i].split(",");
-    date.push(singleDate[0]);
+
+    // console.log(singleDate[0]);
+
+    var year = singleDate[0].slice(0,4);
+    var month = singleDate[0].slice(4,6);
+    var day = singleDate[0].slice(6,8);
+
+    // console.log("Year", year);
+    // console.log("Month", month);
+    // console.log("Day", day);
+
+    var formattedDate = year + '-' + month + '-' + day;
+    // console.log("String Date", formattedDate);
+
+    date.push(new Date(formattedDate));
     maxTemp.push(singleDate[1]);
 }
 
 console.log("date", date);
 console.log("maxTemp", maxTemp);
-=======
-
-
-// Put text into a variable
-var data = document.getElementById("rawdata").value;
-
-// Split data by line
-var data2 = data.split('\n');
-console.log(data2)
-
-// Make empty arrays to store date and temp
-var date = [];
-var maxTemp = [];
-console.log(date)
-
-// Split data into date and max temperature
-for (var i = 2; i < data2.length; i++) {
-    var singleDate = data2[i].split(",");
-    date.push(singleDate[0]);
-    maxTemp.push(singleDate[1]);
-}
-
-console.log("date", date);
-console.log("maxTemp", maxTemp);
->>>>>>> 7842b5bd17da6bd40390050b986bccdb2ec2b767
