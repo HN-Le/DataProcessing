@@ -15,6 +15,7 @@ for (var i = 2; i < data2.length; i++) {
 
     // console.log(singleDate[0]);
 
+    // Formate dates
     var year = singleDate[0].slice(0,4);
     var month = singleDate[0].slice(4,6);
     var day = singleDate[0].slice(6,8);
@@ -32,3 +33,16 @@ for (var i = 2; i < data2.length; i++) {
 
 console.log("date", date);
 console.log("maxTemp", maxTemp);
+
+canvas();
+
+function canvas(){
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    ctx.moveTo(0,0);
+    ctx.lineTo(600,300);
+    ctx.stroke();
+}
+
+//sdfkjsakdjfa;lksdjf;alksd;jf;klsdjfkljwe
