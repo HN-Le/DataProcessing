@@ -1,6 +1,6 @@
 var text;
 
-console.log(text);
+loadFile();
 
 // Put text into a variable
 var data = document.getElementById("rawdata").value;
@@ -16,8 +16,6 @@ var temperature = [];
 // Split data into date and max temperature
 for (var i = 2; i < data2.length - 1; i++) {
     var singleDate = data2[i].split(",");
-
-    // console.log(singleDate[0]);
 
     // Formate dates
     var year = singleDate[0].slice(0,4);
@@ -255,15 +253,21 @@ function drawAxes(){
             graph.strokeStyle="#d3d3d3";
         }
     }
+}
 
+function loadFile() {
 
+var xmlhttp;
+xmlhttp = new XMLHttpRequest();
 
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      text = xmlhttp.responseText;
+      console.log(text);
+    }
+  };
+  xmlhttp.open("GET", "https://raw.githubusercontent.com/HN-Le/DataProcessing/master/Homework/week_2/knmi.txt", true);
+  xmlhttp.send();
 
-
-
-
-
-
-
-
+  return text;
 }

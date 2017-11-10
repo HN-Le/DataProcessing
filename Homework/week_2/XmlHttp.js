@@ -9,6 +9,6 @@ xmlhttp = new XMLHttpRequest();
       text = xmlhttp.responseText;
     }
   };
-  xmlhttp.open("GET", "https://github.com/HN-Le/DataProcessing/blob/master/Homework/week_2/knmi.txt", true);
+  xmlhttp.open("GET", "https://raw.githubusercontent.com/HN-Le/DataProcessing/master/Homework/week_2/knmi.txt", true);
   xmlhttp.send();
 }
