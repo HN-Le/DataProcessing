@@ -1,137 +1,34 @@
-var text;
+/*
+    DataProcessing
+    Tiny Le
+    11130717
+    Week 2
 
-loadFile();
+    - Opdracht is een beetje (nogal een zooitje
+    (Was niet zo'n goede week, mijn volgende opdracht zal beter zijn)
 
-// Put text into a variable
-var data = document.getElementById("rawdata").value;
+*/
 
-// Split data by line
-var data2 = data.split('\n');
-//console.log("Data per line, ", data2)
 
-// Make empty arrays to store date and temp
+
 var date = [];
 var temperature = [];
-
-// Split data into date and max temperature
-for (var i = 2; i < data2.length - 1; i++) {
-    var singleDate = data2[i].split(",");
-
-    // Formate dates
-    var year = singleDate[0].slice(0,4);
-    var month = singleDate[0].slice(4,6);
-    var day = singleDate[0].slice(6,8);
-
-    // console.log("Year", year);
-    // console.log("Month", month);
-    // console.log("Day", day);
-
-    var formattedDate = year + '-' + month + '-' + day;
-    // console.log("String Date", formattedDate);
-
-    date.push(new Date(formattedDate));
-    temperature.push(Number(singleDate[1]));
-}
-
-console.log("Date ", date);
-console.log("Temperature ", temperature);
-
-var xCoordinate = [];
-var yCoordinate = [];
-
-// Source: https://johnresig.com/blog/fast-javascript-maxmin/
-
-Array.min = function( temperature ){
-    return Math.min.apply( Math, temperature );
-};
-
-Array.max = function( temperature ){
-    return Math.max.apply( Math, temperature );
-};
-
-var minTemp = Array.min(temperature);
-var maxTemp = Array.max(temperature);
-
-// var domainTemp = [minTemp, maxTemp];
-var domainTemp = [maxTemp, minTemp];
-console.log("DomainTemp", domainTemp);
-
-
-console.log("min: " + minTemp + " max: " + maxTemp);
-
-var space = 90;
-// To move the axe away from the edge
-var whiteSpace = 40;
-
-var test = (40+ 1460)/13;
-
-var rangeX = [test, 1500];
-var rangeY = [190, 820];
-
-console.log("DomainTemp: ", domainTemp);
-console.log("rangeY: ", rangeY);
-
-for(var i = 0; i < temperature.length; i++){
-
-    var singleTempPoint = (createTransform(domainTemp, rangeY)(temperature[i]));
-    // console.log("Point: ", point);
-    yCoordinate.push(singleTempPoint);
-}
-
-console.log("yCoordinate: ", yCoordinate);
-console.log("length: ", yCoordinate.length);
-
-var dateDays = [];
-var daysSinceJanuary = [];
-
-for (i = 0; i < date.length; i++){
-    var dataDate = new Date(date[i]);
-    var dataInMilliSeconds = Number(dataDate.getTime(date[i]));
-    var dataIndays = (dataInMilliSeconds / 86400000);
-    daysSinceJanuary.push(dataIndays);
-    var axeDate = (dataIndays - daysSinceJanuary[0]);
-    dateDays.push(axeDate);
-}
-
-
-console.log("Days: ", dateDays);
-
-var domainDate = [dateDays[0], dateDays[364]];
-for(var i = 0; i < dateDays.length; i++){
-
-    var singleDatePoint = (createTransform(domainDate, rangeX)(dateDays[i]));
-    xCoordinate.push(singleDatePoint);
-}
-
-console.log("xCoordinate: ", xCoordinate);
-
-Array.min = function( xCoordinate ){
-    return Math.min.apply( Math, xCoordinate );
-};
-
-Array.max = function( xCoordinate ){
-    return Math.max.apply( Math, xCoordinate );
-};
-
-var minCor = Array.min(xCoordinate);
-var maxCor = Array.max(xCoordinate);
-
-console.log("MIN: " + minCor + " MAX " + maxCor);
 
 var canvas = document.getElementById("canvas");
 var graph = canvas.getContext("2d");
 var sectionDate;
 
-drawAxes();
+// To move the axe away from the edge
+var space = 90;
+var whiteSpace = 40;
 
-draw();
+// Make empty arrays to store date and temp
 
-// for (i = 0; i < 364; i++){
-//     console.log("xCoordinate: " + xCoordinate[i] + " yCoordinate: " + yCoordinate[i]);
-// }
+loadFile();
 
 function draw(){
 
+    // Draw the datapoints
     for(i = 0; i < date.length; i++){
 
         graph.beginPath();
@@ -142,13 +39,7 @@ function draw(){
 
         graph.stroke();
         graph.strokeStyle="#ff6666";
-
-        // console.log("MOVE TO) Coordinaten X: " + start + " Coordinaten Y: " + prev_point);
-        // console.log('\n');
-        // console.log("LINE TO) Coordinaten X: " + start + " Coordinaten Y: " + prev_point);
     }
-
-
 
 }
 
@@ -180,36 +71,10 @@ function drawAxes(){
     var canvasWidth = 1600;
     var canvasHeight = 860;
 
-    // 900 - 90 = 810
-    // 1500 - 40 = 1460
-    // 1460 / 12
-
-    var sectionDate = (40+ 1460)/13;
-
-    // // Horizontal Axe
-    // graph.beginPath();
-    // graph.moveTo(whiteSpace, (canvasHeight - space));
-    // graph.lineTo(1500, (canvasHeight - space));
-    // graph.stroke();
-    //
-    graph.fillText('TEST', 50, 860);
-    graph.fillText('TEST', sectionDate, 860);
-    graph.fillText('HOOGTE', 300, 40);
-    graph.fillText('HOOGTE', 300, 860);
-
     // Labels
-
     // Vertical Axe
     graph.beginPath();
-
-    // xAxis = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", ""];
     xAxis = ["Nov (2016)", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov(2017)"];
-
-    // 40
-    // 900 - 40 = 860
-    // 860 - 40 = 820
-    // 930 - 40 40 30
-    // 930 - 110 = 820 /
 
     for (i = 1; i < 14; i++){
         graph.moveTo((i * sectionDate), whiteSpace);
@@ -227,17 +92,11 @@ function drawAxes(){
         }
     }
 
-
     var sectionTemp = 820/7;
     graph.beginPath();
 
-    // var yAxis = ["", "-50", "0", "50", "100", "150", "200", "250", "300", "350"];
     var yAxis = ["250", "200", "150", "100", "50", "0", "-50"];
 
-    // 900 - 90
-    // Horizontal
-    // 70
-    // 860, 790
     for (i = 0; i < 8; i++){
         graph.moveTo(whiteSpace, (canvasHeight - (sectionTemp * i)));
         graph.lineTo(1500, (canvasHeight - (sectionTemp * i)));
@@ -258,16 +117,103 @@ function drawAxes(){
 function loadFile() {
 
 var xmlhttp;
+var text;
 xmlhttp = new XMLHttpRequest();
 
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       text = xmlhttp.responseText;
+
       console.log(text);
+
+      // Split data by line
+      var data = text.split('\n');
+
+      // Split data into date and max temperature
+      for (var i = 2; i < data.length - 1; i++) {
+          var singleDate = data[i].split(",");
+
+          // Formate dates
+          var year = singleDate[0].slice(0,4);
+          var month = singleDate[0].slice(4,6);
+          var day = singleDate[0].slice(6,8);
+
+          var formattedDate = year + '-' + month + '-' + day;
+
+          // Put it in the arrays
+          date.push(new Date(formattedDate));
+          temperature.push(Number(singleDate[1]));
+      }
+
+      var xCoordinate = [];
+      var yCoordinate = [];
+
+      // Source: https://johnresig.com/blog/fast-javascript-maxmin/
+      Array.min = function( temperature ){
+          return Math.min.apply( Math, temperature );
+      };
+
+      Array.max = function( temperature ){
+          return Math.max.apply( Math, temperature );
+      };
+
+      var minTemp = Array.min(temperature);
+      var maxTemp = Array.max(temperature);
+
+      // Quickfixe, should be the reverse but made a mistake somewhere..
+      var domainTemp = [maxTemp, minTemp];
+
+      var sectionDate = (40+ 1460)/13;
+
+      var rangeX = [sectionDate, 1500];
+      var rangeY = [190, 820];
+
+      for(var i = 0; i < temperature.length; i++){
+
+          var singleTempPoint = (createTransform(domainTemp, rangeY)(temperature[i]));
+          yCoordinate.push(singleTempPoint);
+      }
+
+      var dateDays = [];
+      var daysSinceJanuary = [];
+
+      for (i = 0; i < date.length; i++){
+          var dataDate = new Date(date[i]);
+          var dataInMilliSeconds = Number(dataDate.getTime(date[i]));
+          var dataIndays = (dataInMilliSeconds / 86400000);
+          daysSinceJanuary.push(dataIndays);
+          var axeDate = (dataIndays - daysSinceJanuary[0]);
+          dateDays.push(axeDate);
+      }
+
+      var domainDate = [dateDays[0], dateDays[364]];
+      for(var i = 0; i < dateDays.length; i++){
+
+          var singleDatePoint = (createTransform(domainDate, rangeX)(dateDays[i]));
+          xCoordinate.push(singleDatePoint);
+      }
+
+      Array.min = function( xCoordinate ){
+          return Math.min.apply( Math, xCoordinate );
+      };
+
+      Array.max = function( xCoordinate ){
+          return Math.max.apply( Math, xCoordinate );
+      };
+
+      var minCor = Array.min(xCoordinate);
+      var maxCor = Array.max(xCoordinate);
+
     }
   };
+
   xmlhttp.open("GET", "https://raw.githubusercontent.com/HN-Le/DataProcessing/master/Homework/week_2/knmi.txt", true);
   xmlhttp.send();
 
-  return text;
+  drawAxes();
+
+  draw();
+
+
+
 }
