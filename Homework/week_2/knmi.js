@@ -1,3 +1,9 @@
+var text;
+reqListener();
+loadFile();
+
+console.log(text);
+
 // Put text into a variable
 var data = document.getElementById("rawdata").value;
 
@@ -173,6 +179,21 @@ function createTransform(domain, range){
     }
 }
 
+function loadFile() {
+
+var xmlhttp;
+var text;
+xmlhttp = new XMLHttpRequest();
+
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML = xmlhttp.responseText; ;
+    }
+  };
+  xmlhttp.open("GET", "knmi.txt", true);
+  xmlhttp.send();
+}
+
 function drawAxes(){
 
     var canvasWidth = 1600;
@@ -251,6 +272,9 @@ function drawAxes(){
             graph.strokeStyle="#d3d3d3";
         }
     }
+
+
+
 
 
 
