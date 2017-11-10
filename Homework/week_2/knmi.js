@@ -1,6 +1,4 @@
 var text;
-reqListener();
-loadFile();
 
 console.log(text);
 
@@ -177,21 +175,6 @@ function createTransform(domain, range){
     return function(x){
       return alpha * x + beta;
     }
-}
-
-function loadFile() {
-
-var xmlhttp;
-var text;
-xmlhttp = new XMLHttpRequest();
-
-  xmlhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = xmlhttp.responseText; ;
-    }
-  };
-  xmlhttp.open("GET", "knmi.txt", true);
-  xmlhttp.send();
 }
 
 function drawAxes(){
