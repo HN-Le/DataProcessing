@@ -4,25 +4,37 @@
     11130717
     Week 2
 
-    - Opdracht is een beetje (nogal een zooitje
-    (Was niet zo'n goede week, mijn volgende opdracht zal beter zijn)
+Grafiek maken met een dataset van een externe text file.
+
+    - Opdracht is een beetje (nogal) een zooitje
+    - Zonder inladen werkte, daarna ging het snel bergafwaards
+
+    Door tijdgebrek:
+    - Heel veel slecht quickfixes
+    - Mist vragen
+    - Mist goede comments
+    - Mist bronnen
+    - Een niet werkend script
+
+Volgende opdracht zal (stukken) beter geschreven zijn
 
 */
 
-
-
+// Make empty arrays to store date and temp
 var date = [];
 var temperature = [];
 
+// Canvas to draw the graoh
 var canvas = document.getElementById("canvas");
 var graph = canvas.getContext("2d");
+
+// The sizes for the grids in the graph
 var sectionDate;
+var sectionTemp;
 
 // To move the axe away from the edge
 var space = 90;
 var whiteSpace = 40;
-
-// Make empty arrays to store date and temp
 
 loadFile();
 
@@ -123,8 +135,6 @@ xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
       text = xmlhttp.responseText;
-
-      console.log(text);
 
       // Split data by line
       var data = text.split('\n');
