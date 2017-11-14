@@ -1,43 +1,45 @@
 # Tiny Le
 # 11130717
 
-
-# Covert into KNMI text file into JSON format
-
-# YYYYMMDD = Datum (YYYY=jaar MM=maand DD=dag);
-# RH       = Etmaalsom van de neerslag (in 0.1 mm) (-1 voor <0.05 mm);
-#
-# STN,YYYYMMDD,   RH
-
-#
-#  {
-#   "Month":[
-#       "Date"
-#       "Amount"
-#       ],
-#  }
-#
-
-# Save it into JSON file
-
 import csv
 import json
 
 # Load in CSV
-f = open('knmi.csv', 'r')
-csv_f = csv.reader(f);
+with open('knmi.csv', 'r') as csvFile:
+    # Encoding the content in utf-8-sig to remove the BOM at beginning
+    # https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
+    csvData = csv.reader(csvFile.read().decode('utf-8-sig').encode('utf-8').splitlines())
 
-testList = []
-for row in csv_f:
+jsonData = {}
+jsonData['rain amount on the first day of the month'] = []
+data = []
+
+# Go through every line in the CSV file
+for row in csvData:
     date = row[0]
-    dateFormatted = date[0:4] + '-' + date[4:6] + '-' + date[6:8]
-    print dateFormatted
-    amount = row[1]
-    data = { 'date':dateFormatted, 'amount':amount }
-    testList.append(data)
+    day = date[6:8]
+    month = date[4:6]
+    year = date[0:4]
 
-# Reformat data into JSON
-with open('knmi.json', 'w') as fp:
-    json.dump(testList, fp)
+    # Formate dates to be more readable
+    dateFormatted =  day + '-' + month + '-' + year
+    amount = int(row[1])
 
-fp.close
+    # Convert to micrometers
+    if amount == 0:
+        amount = 1
+    elif amount == -1:
+        amount = 0
+    else:
+        amount *= 10
+
+    # Turn it into json format
+    data = { 'date':dateFormatted, 'amount(in micrometers)':str(amount) }
+
+    # Only store first day of the month
+    if day == '01':
+        jsonData['rain amount on the first day of the month'].append(data)
+
+# Open JSON file and write the data
+with open('knmi.json', 'w') as jsonFile:
+    json.dump(jsonData, jsonFile)
