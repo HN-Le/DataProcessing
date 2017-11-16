@@ -11,7 +11,7 @@ with open('knmi.csv', 'r') as csvFile:
     csvData = csv.reader(csvFile.read().decode('utf-8-sig').encode('utf-8').splitlines())
 
 jsonData = {}
-jsonData['rain amount on the first day of the month'] = []
+jsonData= []
 data = []
 
 # Go through every line in the CSV file
@@ -34,11 +34,11 @@ for row in csvData:
         amount *= 10
 
     # Turn it into json format
-    data = { 'date':dateFormatted, 'amount(in micrometers)':str(amount) }
+    data = { 'date':dateFormatted, 'amount':str(amount) }
 
     # Only store first day of the month
     if day == '01':
-        jsonData['rain amount on the first day of the month'].append(data)
+        jsonData.append(data)
 
 # Open JSON file and write the data
 with open('knmi.json', 'w') as jsonFile:

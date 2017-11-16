@@ -1,0 +1,38 @@
+p{
+    font: 10px sans-serif;
+}
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: black;
+  font: 20px sans-serif;
+  text-anchor: middle;
+}
+
+.bar:hover {
+  fill: LightSteelBlue ;
+}
+
+.d3-tip {
+  line-height: 1;
+  font: 10px sans-serif;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  border-radius: 1px;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
