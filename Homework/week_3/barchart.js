@@ -73,6 +73,7 @@ function drawChart(data){
     // Call the tooltip onto the chart to show amount when mouse hovers over a bar
     chart.call(toolTip);
 
+    // Set dimentions of the axes
     x.domain(data.map(function(d) { return d.date; }));
     y.domain([0, 250]);
 

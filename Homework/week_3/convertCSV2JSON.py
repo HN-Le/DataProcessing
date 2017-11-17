@@ -13,6 +13,7 @@ with open('knmi.csv', 'r') as csvFile:
     # https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
     csvData = csv.reader(csvFile.read().decode('utf-8-sig').encode('utf-8').splitlines())
 
+# Empty arrays to store the CSV and JSON data
 jsonData= []
 data = []
 
