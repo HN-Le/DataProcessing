@@ -22,7 +22,7 @@ http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi
 // Clickable link to source dataset
 d3.select("body").append("p").html("First lines").attr("id", "source");
 d3.select("#source")
-.html('<a href = "http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">'
+.html('<a href = "https://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi">'
         + "Source: KNMI</a>");
 
 // Only draw the barchart when all the data is loaded
