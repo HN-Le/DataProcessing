@@ -1,21 +1,35 @@
+/*
+Data Processing
+Week 3: Interactive Bar Chart with D3
+
+Tiny Le
+11130717
+
+*/
+
+/* Change soucre font */
 p{
     font: 10px sans-serif;
 }
 
+/* Change the colour of the chart bars */
 .chart rect {
   fill: steelblue;
 }
 
+/* Change font of bar chart title */
 .chart text {
   fill: black;
   font: 20px sans-serif;
   text-anchor: middle;
 }
 
+/* Change the colour of the chart bars when hovered over */
 .bar:hover {
   fill: LightSteelBlue ;
 }
 
+/* Popup of data style settings */
 .d3-tip {
   line-height: 1;
   font: 10px sans-serif;
@@ -26,10 +40,12 @@ p{
   border-radius: 1px;
 }
 
+/* Change size of the axe's text */
 .axis text {
   font: 10px sans-serif;
 }
 
+/* Style settings of the axe lines */
 .axis path,
 .axis line {
   fill: none;

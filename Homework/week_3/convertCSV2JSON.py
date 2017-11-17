@@ -1,3 +1,6 @@
+# Dataprocessing
+# Week 3: Interactive Bar Chart with D3
+#
 # Tiny Le
 # 11130717
 
@@ -10,7 +13,6 @@ with open('knmi.csv', 'r') as csvFile:
     # https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
     csvData = csv.reader(csvFile.read().decode('utf-8-sig').encode('utf-8').splitlines())
 
-jsonData = {}
 jsonData= []
 data = []
 
@@ -20,29 +22,16 @@ for row in csvData:
     day = date[6:8]
     month = date[4:6]
     year = date[0:4]
-    dayCoverted = int(day)
-    monthConverted = int(month)
 
     # Formate dates to be more readable
     dateFormatted =  day + '-' + month + '-' + year
     amount = int(row[1])
 
-    # # Convert to micrometers
-    # if amount == 0:
-    #     amount = 1
-    # elif amount == -1:
-    #     amount = 0
-    # else:
-    #     amount *= 10
-
     # Turn it into json format
     data = { 'date':dateFormatted, 'amount':str(amount) }
 
-    # Only store first day of the month
-    # if day == '01':
-    #     jsonData.append(data)
-
-    if dayCoverted > 16 and monthConverted == 11:
+    # Only save the last two weeks of November
+    if int(day) > 16 and int(month) == 11:
         jsonData.append(data)
 
 # Open JSON file and write the data
