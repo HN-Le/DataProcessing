@@ -39,9 +39,9 @@ function ifLoaded(callback){
 function drawChart(data){
 
     // Define the properties for the four sides of the chart
-    var margin = {top: 20, right: 30, bottom: 30, left: 40},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 100, bottom: 30, left: 40},
+        width = 1200 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
     // Define properties for the x axe
     var x = d3.scale.ordinal()
@@ -74,7 +74,7 @@ function drawChart(data){
     chart.call(toolTip);
 
     x.domain(data.map(function(d) { return d.date; }));
-    y.domain([0, 600]);
+    y.domain([0, 250]);
 
     // Make X axes and labels
     chart.append("g")
@@ -82,9 +82,10 @@ function drawChart(data){
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis)
         .append("text")
-        .attr("x", 910)
+        .attr("x", 1100)
         .attr("dy", "-0.71em")
         .style("text-anchor", "end")
+        .style("font-size", "15px")
         .text("Date");
 
     // Make Y axes and labels
@@ -96,7 +97,8 @@ function drawChart(data){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Amount of rain on the first day of the month in micrometers");
+        .style("font-size", "15px")
+        .text("Amount of rain in mm");
 
     // Make the bars and set the action of when the mouse hovers a bar
     chart.selectAll(".bar")
@@ -116,7 +118,7 @@ function drawChart(data){
         .attr("y", 10 - (margin.top / 2))
         .attr("text-anchor", "middle")
         .style("font-size", "20px")
-        .text("Amount of rain on the first day of every month in 2015");
+        .text("Amount of rain in the last two weeks of November 2015 ");
 }
 
 // Type conversion function, modifies/converts object for beter representation

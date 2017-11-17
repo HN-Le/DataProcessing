@@ -20,24 +20,29 @@ for row in csvData:
     day = date[6:8]
     month = date[4:6]
     year = date[0:4]
+    dayCoverted = int(day)
+    monthConverted = int(month)
 
     # Formate dates to be more readable
     dateFormatted =  day + '-' + month + '-' + year
     amount = int(row[1])
 
-    # Convert to micrometers
-    if amount == 0:
-        amount = 1
-    elif amount == -1:
-        amount = 0
-    else:
-        amount *= 10
+    # # Convert to micrometers
+    # if amount == 0:
+    #     amount = 1
+    # elif amount == -1:
+    #     amount = 0
+    # else:
+    #     amount *= 10
 
     # Turn it into json format
     data = { 'date':dateFormatted, 'amount':str(amount) }
 
     # Only store first day of the month
-    if day == '01':
+    # if day == '01':
+    #     jsonData.append(data)
+
+    if dayCoverted > 16 and monthConverted == 11:
         jsonData.append(data)
 
 # Open JSON file and write the data
