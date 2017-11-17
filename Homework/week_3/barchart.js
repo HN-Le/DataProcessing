@@ -122,7 +122,7 @@ function drawChart(data){
         .text("Amount of rain in the last two weeks of November 2015 ");
 }
 
-// Type conversion function, modifies/converts object for beter representation
+// Type conversion function, modifies/converts object for a beter representation
 function type(d) {
     d.amount = +d.amount;
     return d;
