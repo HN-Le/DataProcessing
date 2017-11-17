@@ -62,7 +62,7 @@ function drawChart(data){
     // Initialize tooltip
     var toolTip = d3.tip()
     .attr('class', 'd3-tip')
-    .html(function(d) {return "Amount: <span style='color:white'>" + d.amount + "</span>"; })
+    .html(function(d) {return d.amount +"<span style='color:white'> mm" +  "</span>"; })
 
     var chart = d3.select(".chart")
         .attr("width", width + margin.left + margin.right)
