@@ -86,8 +86,7 @@ function drawChart(data){
       // Initialize tooltip
     var toolTip = d3.tip()
         .attr('class', 'd3-tip')
-        .html(function(d) {return
-                d.country + "<span style='color:white'>" +  "</span>" + "<br>"
+        .html(function(d) {return d.country + "<span style='color:white'>" +  "</span>" + "<br>"
                 + "HPI: " + "<span style='color:white'>" + d.happyPlanetIndex + "</span>" + "<br>"
                 + "HPI rank: " + "<span style='color:white'>" + d.rank + "</span>" + "<br>"
                 + "Wellbeing: " + "<span style='color:white'>" + d.wellBeing + "</span>" + "<br>"
