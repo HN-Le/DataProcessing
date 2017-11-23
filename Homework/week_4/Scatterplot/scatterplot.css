@@ -6,4 +6,44 @@ Tiny Le
 11130717
 /*
 
-/* COMMENTS /*
+/* COMMENTS */
+
+p {
+    font: 15px sans-serif;
+    margin-left: 75px;
+}
+
+text {
+  fill: black;
+  font: 20px sans-serif;
+  text-anchor: middle;
+}
+
+/* Popup of data style settings */
+.d3-tip {
+  line-height: 0.5;
+  font: 10px sans-serif;
+  font-weight: bold;
+  padding: 5px;
+  background: rgba(119, 136, 153, 1);
+  border: 10px;
+  color: #fff;
+  border-radius: 1px;
+}
+
+.legend text{
+    font: 15px sans-serif;
+}
+
+/* Change size of the axe's text */
+.axis text {
+  font: 15px sans-serif;
+}
+
+/* Style settings of the axe lines */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}

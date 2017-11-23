@@ -19,7 +19,8 @@ d3.xml("test.svg", "image/svg+xml", function(error, xml) {
     document.body.appendChild(xml.documentElement);
 
     //code om te veranderen
-    var colours = ['#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#005824’'];
+    var colours = ['#ccece6','#99d8c9','#66c2a4','#41ae76','#238b45','#005824'];
+    var numbers = ['100', '1000', '10000', '100000', '1000000', '10000000'];
 
     var widthKleur = 21
     var height = 29
@@ -29,7 +30,6 @@ d3.xml("test.svg", "image/svg+xml", function(error, xml) {
 
     var widthTekst = 119.1
     var xTekst = 46.5
-
 
     d3.select("svg").append("rect")
         .attr("id", "kleur4")
@@ -55,6 +55,7 @@ d3.xml("test.svg", "image/svg+xml", function(error, xml) {
         .attr("width", widthKleur)
         .attr("height", height)
 
+
     d3.select("svg").append("rect")
         .attr("id", "tekst5")
         .attr("class", "st2")
@@ -70,5 +71,27 @@ d3.xml("test.svg", "image/svg+xml", function(error, xml) {
         .attr("y", (y + 2*interval))
         .attr("width", widthTekst)
         .attr("height", height)
+
+    d3.selectAll(".st1")
+        .style("fill", function (d, i) {return colours[i];})
+
+    for (i = 1; i < numbers.length +1 ; i++){
+
+        d3.select("svg")
+        .append("text")
+        .text(function (d) {return numbers[i - 1];})
+
+        .attr("x", 50)
+        .attr("y", (40 *i))
+        .attr("width", widthTekst)
+        .attr("height", height)
+
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")
+        .attr("fill", colours[i -1])
+    }
+
+
+
 
 });
