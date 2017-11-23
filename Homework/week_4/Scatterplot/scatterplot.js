@@ -12,6 +12,7 @@ d3.select("body").append("p").html("First lines").attr("id", "info");
 d3.select("#info")
             .html(
             '<b>' + 'Happy Planet Index:' + '</b>' + ' The higher the number, the higher the sustainable wellbeing.' + '<br>' +
+            '<b>' + 'Happy Planet Index Rank (Out of 140 countries):' + '</b>' + ' The higher the number, the higher the rank among countries.' + '<br>' +
             '<b>' + 'Wellbeing (Scale 0-10):' + '</b>' +  ' The higher the number, the higher the life satisfaction.' + '<br>' +
             '<b>' + 'Ecological footprint (Size of dot):' + '</b>' + ' The smaller the dot, the lower the negative environmental impact.' + '<br>' + '<br>' +
             '<i>' + ' " The Happy Planet Index measures what matters: sustainable wellbeing for all.' + '<br>' +
