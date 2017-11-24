@@ -2,24 +2,27 @@
 Dataprocessing
 Week 4: Scatterplot
 
+Creating a scatterplot to visualize a dataset
+
 Tiny Le
 11130717
-/*
+*/
 
-/* COMMENTS */
-
+/* Change all non scatterplot text  */
 p {
     font: 15px sans-serif;
     margin-left: 75px;
 }
 
+
+/* Change title of scatterplot */
 text {
   fill: black;
-  font: 20px sans-serif;
+  font: 1px sans-serif;
   text-anchor: middle;
 }
 
-/* Popup of data style settings */
+/* Popup of data, style settings */
 .d3-tip {
   line-height: 0.5;
   font: 10px sans-serif;
@@ -31,6 +34,7 @@ text {
   border-radius: 1px;
 }
 
+/* Change legend font */
 .legend text{
     font: 15px sans-serif;
 }
