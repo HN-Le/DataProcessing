@@ -1,0 +1,12 @@
+/* Change size of the axe's text */
+.axis text {
+  font: 15px sans-serif;
+}
+
+/* Style settings of the axe lines */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
