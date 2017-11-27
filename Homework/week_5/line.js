@@ -12,6 +12,12 @@ Sources:
 
 Dataset:
 http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi
+
+
+Path:
+D:\Code\GitHub\DataProcessing\Homework\week_5
+python -m SimpleHTTPServer 8888 &
+
 */
 
 showText();
@@ -76,12 +82,15 @@ function drawGraph(data){
         .scale(y)
         .orient("left");
 
-    var line = d3.svg.line()
+    var lineLelystad = d3.svg.line()
         .x(function(d) { return x(d.date); })
-        .y(function(d) { return y(d.averageLelystad); });
+        .y(function(d) { return y(d.averageLelystad); })
 
-    // Choose a color pack
-    var color = d3.scale.category10();
+    var lineMaastricht  = d3.svg.line()
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.averageMaastricht); })
+
+    var colour = d3.scale.category10();
 
     // Initialize the graph
     var svg = d3.select(".graph")
@@ -93,32 +102,84 @@ function drawGraph(data){
     // Covert strings to numbers
     data.forEach(function(d) {
         d.averageLelystad = +d.averageLelystad;
+        d.averageMaastricht = +d.averageMaastricht;
         d.date = parseTime(d.date);
         });
 
-      x.domain(d3.extent(data, function(d) { return d.date; }));
+    x.domain(d3.extent(data, function(d) { return d.date; }));
 
-      y.domain(d3.extent(data, function(d) { return d.averageLelystad; })).nice();
+    y.domain(d3.extent(data, function(d) { return d.averageLelystad; })).nice();
 
-      svg.append("g")
-          .attr("class", "axis axis--x")
-          .attr("transform", "translate(0," + height + ")")
-          .call(xAxis)
-          .append("text")
-          .attr("x", width)
-          .attr("y", -6)
-          .style("text-anchor", "end")
-          .text("Date");
+    // Makes axes
+    svg.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + (height*0.75) + ")")
+        .call(xAxis)
+        .append("text")
+        .attr("x", width)
+        .attr("y", -6)
+        .style("text-anchor", "end")
+        .text("Date");
 
-      svg.append("g")
-          .attr("class", "axis axis--y")
-          .call(yAxis)
-          .append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("y", 6)
-          .attr("dy", "0.71em")
-          .attr("fill", "#000")
-          .style("text-anchor", "end")
-          .text("Temperature, ºC");
+    svg.append("g")
+        .attr("class", "axis axis--y")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 6)
+        .attr("dy", "0.71em")
+        .attr("fill", "#000")
+        .style("text-anchor", "end")
+        .text("Temperature, ºC");
+
+    // Make Lelystad line
+    svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .style("stroke", function(d) { return colour("Average Temp Lelystad"); })
+        .attr("d", lineLelystad);
+
+    // Make Maastricht line
+    svg.append("path")
+        .datum(data)
+        .attr("fill", "none")
+        .attr("stroke-linejoin", "round")
+        .attr("stroke-linecap", "round")
+        .attr("stroke-width", 1.5)
+        .style("stroke", function(d) { return colour("Average Temp Maastricht"); })
+        .attr("d", lineMaastricht);
+
+    // Initialize the legend
+    var legend = svg.selectAll(".legend")
+        .data(colour.domain())
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+
+    // Make the legend squares and fill them with one of the colours in colour pack
+    legend.append("rect")
+        .attr("x", width - 40)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", colour);
+
+    // Make the legend texts
+    legend.append("text")
+        .attr("x", width - 50)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "end")
+        .text(function(d) { return d; });
+
+    // Make the scatterplot tittle
+    svg.append("text")
+        .attr("x", (width / 2))
+        .attr("y", 10 - (margin.top / 2))
+        .attr("text-anchor", "middle")
+        .style("font-size", "20px")
+        .text("Lelystad VS Maastricht");
 
 }
