@@ -22,18 +22,6 @@ text {
   text-anchor: middle;
 }
 
-/* Popup of data, style settings */
-.d3-tip {
-  line-height: 0.5;
-  font: 10px sans-serif;
-  font-weight: bold;
-  padding: 5px;
-  background: rgba(119, 136, 153, 1);
-  border: 10px;
-  color: #fff;
-  border-radius: 1px;
-}
-
 /* Change legend font */
 .legend text{
     font: 15px sans-serif;

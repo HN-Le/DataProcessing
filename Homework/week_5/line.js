@@ -45,7 +45,7 @@ function showText(){
     // Display text to explain variables and goal of the index
     d3.select("body").append("p").html("First lines").attr("id", "info");
     d3.select("#info")
-                .html("TO BE CONTINUED");
+                .html("Click on the city name to toggle that data on/off!");
 
     // Clickable link to source dataset
     d3.select("body").append("p").html("Second lines").attr("id", "source");
@@ -234,7 +234,7 @@ function drawGraph(data){
         .attr("text-anchor", "start")
         .attr('id', 'title')
         .style("font-size", "20px")
-        .text("Lelystad VS Maastricht");
+        .text("The average Temperatures in Lelystad & Maastricht");
 
     // FOCUS
     var focus = svg.append('g').style('display', 'none');

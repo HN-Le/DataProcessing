@@ -1,3 +1,8 @@
+p {
+    font: 15px sans-serif;
+    margin-left: 75px;
+}
+
 /* Change size of the axe's text */
 .axis text {
   font: 15px sans-serif;
@@ -23,24 +28,24 @@
             pointer-events: all;
         }
 
-    .focusLine {
-        fill: none;
-        stroke: red;
-        stroke-width: 1px;
-    }
+.focusLine {
+    fill: none;
+    stroke: LightCoral  ;
+    stroke-width: 1px;
+}
 
-    .focusCircle {
-        fill: red;
-    }
+.focusCircle {
+    fill: red;
+}
 
 
 
-#lelyButton {
+#infoLely {
       fill: black;
       font: 15px sans-serif;
     }
 
-#maasButton {
+#infoMaas {
       fill: black;
       font: 15px sans-serif;
     }
@@ -53,9 +58,4 @@
 #title {
     fill: black;
     font: 20px sans-serif;
-}
-
-.label {
-    fill: black;
-    font: 15px sans-serif;
 }
