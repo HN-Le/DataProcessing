@@ -10,3 +10,52 @@
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.line {
+         fill: none;
+         stroke: steelblue;
+         stroke-width: 2px;
+       }
+
+.overlay {
+            fill: none;
+            stroke: none;
+            pointer-events: all;
+        }
+
+    .focusLine {
+        fill: none;
+        stroke: red;
+        stroke-width: 1px;
+    }
+
+    .focusCircle {
+        fill: red;
+    }
+
+
+
+#lelyButton {
+      fill: black;
+      font: 15px sans-serif;
+    }
+
+#maasButton {
+      fill: black;
+      font: 15px sans-serif;
+    }
+
+#dateText {
+      fill: black;
+      font: 15px sans-serif;
+    }
+
+#title {
+    fill: black;
+    font: 20px sans-serif;
+}
+
+.label {
+    fill: black;
+    font: 15px sans-serif;
+}

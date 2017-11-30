@@ -8,7 +8,7 @@ import csv
 import json
 
 # Load in CSV
-with open('data2.csv', 'r') as csvFile:
+with open('data.csv', 'r') as csvFile:
     # Encoding the content in utf-8-sig to remove the BOM at beginning
     # https://stackoverflow.com/questions/8898294/convert-utf-8-with-bom-to-utf-8-with-no-bom-in-python
     csvData = csv.reader(csvFile.read().decode('utf-8-sig').encode('utf-8').splitlines())

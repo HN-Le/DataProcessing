@@ -22,10 +22,10 @@ python -m SimpleHTTPServer 8888 &
 
 showText();
 
-ifLoaded(drawGraph);
+ifDataLoaded(drawGraph);
 
 // Callback for when data is loaded
-function ifLoaded(callback){
+function ifDataLoaded(callback){
 
     d3.json("data.json", function (data){
 
@@ -61,9 +61,9 @@ function showText(){
 
 function drawGraph(data){
 
-    var margin = {top: 100, right: 100, bottom: 30, left: 80},
-        width = 1300 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+    var margin = {top: 100, right: 200, bottom: 30, left: 80},
+        width = 1200 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
     var parseTime = d3.timeParse("%Y%m%d");
 
@@ -107,8 +107,11 @@ function drawGraph(data){
         });
 
     x.domain(d3.extent(data, function(d) { return d.date; }));
-
     y.domain(d3.extent(data, function(d) { return d.averageLelystad; })).nice();
+
+    var xDomain = d3.extent(data, function(d) { return d.date; });
+    var yDomain = d3.extent(data, function(d) { return d.averageLelystad; });
+
 
     // Makes axes
     svg.append("g")
@@ -130,7 +133,7 @@ function drawGraph(data){
         .attr("dy", "0.71em")
         .attr("fill", "#000")
         .style("text-anchor", "end")
-        .text("Temperature, ºC");
+        .text("Temperature in ºC");
 
     // Make Lelystad line
     svg.append("path")
@@ -140,7 +143,9 @@ function drawGraph(data){
         .attr("stroke-linecap", "round")
         .attr("stroke-width", 1.5)
         .style("stroke", function(d) { return colour("Average Temp Lelystad"); })
-        .attr("d", lineLelystad);
+        .attr('class', 'lelyLine')
+        .attr('id', 'lely')
+        .attr("d", lineLelystad)
 
     // Make Maastricht line
     svg.append("path")
@@ -150,36 +155,207 @@ function drawGraph(data){
         .attr("stroke-linecap", "round")
         .attr("stroke-width", 1.5)
         .style("stroke", function(d) { return colour("Average Temp Maastricht"); })
+        .attr('class', 'maasLine')
+        .attr('id', 'maas')
         .attr("d", lineMaastricht);
 
-    // Initialize the legend
-    var legend = svg.selectAll(".legend")
-        .data(colour.domain())
-        .enter().append("g")
-        .attr("class", "legend")
-        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+    // dots
+    svg.selectAll('lelystad')
+                .data(data).enter()
+                .append('circle')
+                .attr('cx', function(d) { return x(d.date); })
+                .attr('cy', function(d) { return y(d.averageLelystad); })
+                .attr('r', 3)
+                .attr('class', 'lelystad')
+                .attr('id', 'lelyDot')
+                .style("fill", function(d) { return colour("Average Temp Lelystad"); })
 
-    // Make the legend squares and fill them with one of the colours in colour pack
-    legend.append("rect")
-        .attr("x", width - 40)
-        .attr("width", 18)
-        .attr("height", 18)
-        .style("fill", colour);
+   svg.selectAll('maastricht')
+                .data(data).enter()
+                .append('circle')
+                .attr('cx', function(d) { return x(d.date); })
+                .attr('cy', function(d) { return y(d.averageMaastricht); })
+                .attr('r', 3)
+                .attr('class', 'maastricht')
+                .attr('id', 'maasDot')
+                .style("fill", function(d) { return colour("Average Temp Maastricht"); })
 
-    // Make the legend texts
-    legend.append("text")
-        .attr("x", width - 50)
-        .attr("y", 9)
-        .attr("dy", ".35em")
-        .style("text-anchor", "end")
-        .text(function(d) { return d; });
+    svg.append("text")
+        .attr('x', 50 )
+        .attr('y', 0)
+        .attr('id', 'lelyButton')
+        .style("fill", function(d) { return colour("Average Temp Lelystad"); } )
+        .on("click", function(){
+            console.log("yups")
+    		// Determine if current line is visible
+    		var active   = lely.active ? false : true ,
+    		  newOpacity = active ? 0 : 1;
+
+    		// Hide or show the elements
+    		d3.select("#lely").style("opacity", newOpacity);
+            d3.selectAll("#lelyDot").style("opacity", newOpacity);
+            d3.select("#infoLely").style("opacity", newOpacity);
+            d3.select("#focusLineXL").style("opacity", newOpacity);
+            d3.select("#focusLineYL").style("opacity", newOpacity);
+            d3.select("#focusCircleL").style("opacity", newOpacity);
+
+    		// Update whether or not the elements are active
+    		lely.active = active;
+            })
+            .text("LELYSTAD")
+
+        svg.append("text")
+            .attr('x', 150 )
+            .attr('y', 0)
+            .attr('id', 'maasButton')
+            .style("fill", function(d) { return colour("Average Temp Maastricht"); })
+            .on("click", function(){
+                console.log("nops")
+        		// Determine if current line is visible
+        		var active   = maas.active ? false : true ,
+        		  newOpacity = active ? 0 : 1;
+
+        		// Hide or show the elements
+        		d3.select("#maas").style("opacity", newOpacity);
+                d3.select("#infoMaas").style("opacity", newOpacity);
+                d3.selectAll("#maasDot").style("opacity", newOpacity);
+                d3.select("#focusLineXM").style("opacity", newOpacity);
+                d3.select("#focusLineYM").style("opacity", newOpacity);
+                d3.select("#focusCircleM").style("opacity", newOpacity);
+
+        		// Update whether or not the elements are active
+        		maas.active = active;
+            })
+            .text("MAASTRICHT")
 
     // Make the scatterplot tittle
     svg.append("text")
-        .attr("x", (width / 2))
         .attr("y", 10 - (margin.top / 2))
-        .attr("text-anchor", "middle")
+        .attr("text-anchor", "start")
+        .attr('id', 'title')
         .style("font-size", "20px")
         .text("Lelystad VS Maastricht");
+
+    // FOCUS
+    var focus = svg.append('g').style('display', 'none');
+
+            focus.append('line')
+                .attr('id', 'focusLineXL')
+                .attr('class', 'focusLine');
+            focus.append('line')
+                .attr('id', 'focusLineYL')
+                .attr('class', 'focusLine');
+            focus.append('circle')
+                .attr('id', 'focusCircleL')
+                .attr('r', 3)
+                .attr('class', 'circle focusCircle');
+
+            focus.append('line')
+                .attr('id', 'focusLineXM')
+                .attr('class', 'focusLine');
+            focus.append('line')
+                .attr('id', 'focusLineYM')
+                .attr('class', 'focusLine');
+            focus.append('circle')
+                .attr('id', 'focusCircleM')
+                .attr('r', 3)
+                .attr('class', 'circle focusCircle');
+
+            focus.append("text")
+            .attr('id', 'dateText')
+
+
+            focus.append("text")
+            .attr('id', 'infoLely')
+
+
+            focus.append("text")
+            .attr('id', 'infoMaas')
+
+
+            focus.append("rect")
+            .attr('id', 'box')
+
+            var bisectDate = d3.bisector(function(d) { return d.date; }).left;
+
+            svg.append('rect')
+                .attr('class', 'overlay')
+                .attr('width', width)
+                .attr('height', height)
+                .on('mouseover', function() { focus.style('display', null); })
+                .on('mouseout', function() { focus.style('display', 'none'); })
+                .on('mousemove', function() {
+                    var mouse = d3.mouse(this);
+                    var mouseDate = x.invert(mouse[0]);
+
+                    var i = bisectDate(data, mouseDate); // returns the index to the current data item
+
+                    var d0 = data[i - 1].averageLelystad
+                    var d1 = data[i].averageLelystad;
+
+                    var d1 = data[i - 1].averageMaastricht
+                    var d2 = data[i].averageMaastricht;
+
+                    // work out which date value is closest to the mouse
+                    mouseDate - d0[0] > d1[0] - mouseDate ? d1 : d0;
+                    mouseDate - d1[0] > d2[0] - mouseDate ? d2 : d1;
+
+                    // X coordinate date
+                    var a = x(data[i].date);
+
+                    // Y coordinate cities
+                    var b = y(data[i].averageLelystad);
+                    var c = y(data[i].averageMaastricht);
+
+                    focus.select('#focusCircleL')
+                        .attr('cx', a)
+                        .attr('cy', b);
+
+                    focus.select('#focusCircleM')
+                        .attr('cx', a)
+                        .attr('cy', c);
+
+                    focus.select('#focusLineXL')
+                        .attr('x1', a).attr('y1', -height)
+                        .attr('x2', a).attr('y2', height);
+
+                    focus.select('#focusLineXM')
+                        .attr('x1', a).attr('y1', -height)
+                        .attr('x2', a).attr('y2', height);
+
+                    focus.select('#focusLineYL')
+                        .attr('x1', -x(i) ).attr('y1', b)
+                        .attr('x2', x(i)  ).attr('y2', b);
+
+                    focus.select('#focusLineYM')
+                        .attr('x1', -x(i) ).attr('y1', c)
+                        .attr('x2', x(i) ).attr('y2', c);
+
+                    // To grab the highest line
+                    var h = b < c ? b : c;
+
+                    var formateDate = d3.timeFormat("%d-%m-%Y")
+
+                    focus.select('#dateText')
+                        .attr("transform", "translate(" + (a + 20) + "," + (h - 50) + ")");
+
+                    focus.select('#infoLely')
+                        .attr("transform", "translate(" + (a + 20) + "," + (h - 30) + ")");
+
+                    focus.select('#infoMaas')
+                        .attr("transform", "translate(" + (a + 20) + "," + (h - 10) + ")");
+
+                    focus.select("#dateText")
+                        .text(function() { return "Date: " + formateDate(data[i].date); });
+
+                    focus.select("#infoLely")
+                        .text(function() { return "Lelystad: " + data[i].averageLelystad; });
+
+                    focus.select("#infoMaas")
+                        .text(function() { return "Maastricht: " + data[i].averageMaastricht; });
+
+                });
+
+
 
 }
