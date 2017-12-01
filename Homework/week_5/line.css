@@ -1,3 +1,15 @@
+/*
+Dataprocessing
+Week 5: D3 Line
+
+Tiny Le
+11130717
+
+Creating an interactive multiline graph
+
+*/
+
+/* Change all non graph text  */
 p {
     font: 15px sans-serif;
     margin-left: 75px;
@@ -16,30 +28,25 @@ p {
   shape-rendering: crispEdges;
 }
 
-.line {
-         fill: none;
-         stroke: steelblue;
-         stroke-width: 2px;
-       }
-
+/* Style settings of the transparant overlay */
 .overlay {
             fill: none;
             stroke: none;
             pointer-events: all;
         }
-
+/* Style settings of the cross hair */
 .focusLine {
     fill: none;
     stroke: LightCoral  ;
     stroke-width: 1px;
 }
 
+/* Style settings of the data point dot that has been hovered on */
 .focusCircle {
     fill: red;
 }
 
-
-
+/* Style settings pop up text and title */
 #infoLely {
       fill: black;
       font: 15px sans-serif;

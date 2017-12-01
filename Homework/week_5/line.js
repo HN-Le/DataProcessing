@@ -8,16 +8,16 @@ Tiny Le
 Creating an interactive multiline graph
 
 Sources:
-
+    http://bl.ocks.org/d3noob/5d621a60e2d1d02086bf
+    http://tributary.io/inlet/8677777
+    https://github.com/d3/d3-time-format#timeFormat
+    https://bl.ocks.org/alandunning/cfb7dcd7951826b9eacd54f0647f48d3
+    https://bl.ocks.org/mbostock/3884955
+    https://code.tutsplus.com/tutorials/building-a-multi-line-chart-using-d3js-part-2--cms-22973
+    http://bl.ocks.org/mikehadlow/93b471e569e31af07cd3
 
 Dataset:
-http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi
-
-
-Path:
-D:\Code\GitHub\DataProcessing\Homework\week_5
-python -m SimpleHTTPServer 8888 &
-
+    http://projects.knmi.nl/klimatologie/daggegevens/selectie.cgi
 */
 
 showText();
@@ -57,7 +57,7 @@ function showText(){
     d3.select("body").append("p").html("Third lines").attr("id", "name");
     d3.select("#name")
                 .html('Line graph made by: Tiny Le (11130717)');
-}
+    }
 
 function drawGraph(data){
 
@@ -82,6 +82,7 @@ function drawGraph(data){
         .scale(y)
         .orient("left");
 
+    // Set properties lines
     var lineLelystad = d3.svg.line()
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.averageLelystad); })
@@ -90,6 +91,7 @@ function drawGraph(data){
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.averageMaastricht); })
 
+    // Colour pack
     var colour = d3.scale.category10();
 
     // Initialize the graph
@@ -111,7 +113,6 @@ function drawGraph(data){
 
     var xDomain = d3.extent(data, function(d) { return d.date; });
     var yDomain = d3.extent(data, function(d) { return d.averageLelystad; });
-
 
     // Makes axes
     svg.append("g")
@@ -159,7 +160,7 @@ function drawGraph(data){
         .attr('id', 'maas')
         .attr("d", lineMaastricht);
 
-    // dots
+    // Make dots
     svg.selectAll('lelystad')
                 .data(data).enter()
                 .append('circle')
@@ -180,14 +181,14 @@ function drawGraph(data){
                 .attr('id', 'maasDot')
                 .style("fill", function(d) { return colour("Average Temp Maastricht"); })
 
+    // Make the list and set a listener for Lelystad
     svg.append("text")
         .attr('x', 50 )
         .attr('y', 0)
         .attr('id', 'lelyButton')
         .style("fill", function(d) { return colour("Average Temp Lelystad"); } )
         .on("click", function(){
-            console.log("yups")
-    		// Determine if current line is visible
+    		// Check if line is visible or not
     		var active   = lely.active ? false : true ,
     		  newOpacity = active ? 0 : 1;
 
@@ -199,19 +200,21 @@ function drawGraph(data){
             d3.select("#focusLineYL").style("opacity", newOpacity);
             d3.select("#focusCircleL").style("opacity", newOpacity);
 
-    		// Update whether or not the elements are active
+    		// Update depending on element state
     		lely.active = active;
             })
-            .text("LELYSTAD")
 
+            .text("LELYSTAD");
+
+        // Make the list and set a listener for Maastricht
         svg.append("text")
             .attr('x', 150 )
             .attr('y', 0)
             .attr('id', 'maasButton')
             .style("fill", function(d) { return colour("Average Temp Maastricht"); })
             .on("click", function(){
-                console.log("nops")
-        		// Determine if current line is visible
+
+        		// Check if line is visible or not
         		var active   = maas.active ? false : true ,
         		  newOpacity = active ? 0 : 1;
 
@@ -223,10 +226,11 @@ function drawGraph(data){
                 d3.select("#focusLineYM").style("opacity", newOpacity);
                 d3.select("#focusCircleM").style("opacity", newOpacity);
 
-        		// Update whether or not the elements are active
+        		/// Update depending on element state
         		maas.active = active;
             })
-            .text("MAASTRICHT")
+
+            .text("MAASTRICHT");
 
     // Make the scatterplot tittle
     svg.append("text")
@@ -236,7 +240,7 @@ function drawGraph(data){
         .style("font-size", "20px")
         .text("The average Temperatures in Lelystad & Maastricht");
 
-    // FOCUS
+    // Make the cross hair and make it follow the mouse
     var focus = svg.append('g').style('display', 'none');
 
             focus.append('line')
@@ -276,6 +280,7 @@ function drawGraph(data){
             focus.append("rect")
             .attr('id', 'box')
 
+            // Function to return the index left of a data point
             var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
             svg.append('rect')
@@ -288,7 +293,8 @@ function drawGraph(data){
                     var mouse = d3.mouse(this);
                     var mouseDate = x.invert(mouse[0]);
 
-                    var i = bisectDate(data, mouseDate); // returns the index to the current data item
+                    // returns the index to the current data item
+                    var i = bisectDate(data, mouseDate);
 
                     var d0 = data[i - 1].averageLelystad
                     var d1 = data[i].averageLelystad;
@@ -307,6 +313,7 @@ function drawGraph(data){
                     var b = y(data[i].averageLelystad);
                     var c = y(data[i].averageMaastricht);
 
+                    // Set the x and y values based cloest data point mouse
                     focus.select('#focusCircleL')
                         .attr('cx', a)
                         .attr('cy', b);
@@ -334,8 +341,10 @@ function drawGraph(data){
                     // To grab the highest line
                     var h = b < c ? b : c;
 
+                    // Formate date to show a more clean date
                     var formateDate = d3.timeFormat("%d-%m-%Y")
 
+                    // Set the position and text of the popup texts
                     focus.select('#dateText')
                         .attr("transform", "translate(" + (a + 20) + "," + (h - 50) + ")");
 
@@ -353,7 +362,6 @@ function drawGraph(data){
 
                     focus.select("#infoMaas")
                         .text(function() { return "Maastricht: " + data[i].averageMaastricht; });
-
                 });
 
 
