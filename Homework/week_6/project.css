@@ -1,0 +1,23 @@
+/* Style settings of the axe lines */
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+/* Change size of the axe's text */
+.axis text {
+  font: 15px sans-serif;
+}
+
+div.tooldiv {
+  position: absolute;
+  text-align: center;
+
+
+  padding: 10px;
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border: 0px;
+}
