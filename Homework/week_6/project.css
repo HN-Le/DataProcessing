@@ -1,3 +1,12 @@
+/*   Dataprocessing
+
+	 Week 6: Linked Views
+	 Creating a linked views visualization
+
+	 Tiny Le
+	 11130717
+*/
+
 /* Style settings of the axe lines */
 .axis path,
 .axis line {
@@ -11,11 +20,10 @@
   font: 15px sans-serif;
 }
 
+/* Style settings fpr the tooltip */
 div.tooldiv {
   position: absolute;
   text-align: center;
-
-
   padding: 10px;
   font: 12px sans-serif;
   background: lightsteelblue;
