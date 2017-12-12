@@ -29,6 +29,7 @@
 	 https://developer.mozilla.org/en-US/docs/Web/API/UIEvent/pageX
 	 https://bl.ocks.org/mbostock/3808218
 	 https://bl.ocks.org/hrecht/f84012ee860cb4da66331f18d588eee3
+	 https://bl.ocks.org/sarubenfeld/56dc691df199b4055d90e66b9d5fc0d2
 */
 
 queue()
@@ -36,7 +37,15 @@ queue()
 	.defer(d3.csv, 'groep.csv')
 	.await(makeGroupBarchart)
 
+
+
 function makeGroupBarchart(error, dataTotaal, dataGroep){
+
+	//
+	//
+	//	GROUP BAR CHART
+	//
+	//
 
     var svg = d3.select("svg"),
         margin = {top: 100, right: 300, bottom: 30, left: 100},
@@ -61,8 +70,14 @@ function makeGroupBarchart(error, dataTotaal, dataGroep){
 
 	// Tooltip
     var div = d3.select("body").append("div")
-    .attr("class", "tooldiv")
-    .style("opacity", 0);
+	.attr("id" , "tooltip")
+    .attr("class", "hidden")
+
+	var category = d3.select("div").append("p")
+	.attr("id", "category")
+
+	var values = d3.select("div").append("p")
+	.attr("id", "value")
 
     dataTotaal.forEach(function(d) {
         d["Toegang tot internet"] = +d["Toegang tot internet"];
@@ -93,15 +108,25 @@ function makeGroupBarchart(error, dataTotaal, dataGroep){
             .attr("fill", function(d) { return colour(d.key); })
             .attr("dy", function(d) { return d.value; })
             .on("mouseover", function(d) {
-				div.transition()
-					.style("opacity", .9);
-				div.html(d.key + "<br/>" + d.value + "<span>" + "%" + "</span>")
-					.style("left", (d3.event.pageX) + "px")
-					.style("top", (d3.event.pageY) + "px");
+
+				d3.select("#tooltip")
+				.style("left", (d3.event.pageX) + "px")
+				.style("top", (d3.event.pageY) + "px")
+				.select("#value")
+				.text(d.value + "%");
+
+				d3.select("#tooltip")
+				.style("left", (d3.event.pageX) + "px")
+				.style("top", (d3.event.pageY) + "px")
+				.select("#category")
+				.text(d.key);
+
+				d3.select("#tooltip").classed("hidden", false);
                })
-			.on("mouseout", function(d) {
-				div.transition()
-					.style("opacity", 0);
+
+			.on("mouseout", function() {
+
+				d3.select("#tooltip").classed("hidden", true);
 				});
 
         chart.append("g")
@@ -153,6 +178,12 @@ function makeGroupBarchart(error, dataTotaal, dataGroep){
             .style("font-size", "20px")
             .text("Internet faciliteiten in Nederlandse huishoudens");
 
+	//
+	//
+	//		SINGLE BAR CHART
+	//
+	//
+
 		var svgSub = d3.select("#barchart"),
 	        marginSub = {top: 10, right: 300, bottom: 50, left: 100},
 	        widthSub = +svg.attr("width") - marginSub.left - marginSub.right,
@@ -168,9 +199,6 @@ function makeGroupBarchart(error, dataTotaal, dataGroep){
 	    // Define properties for the y axe
 	    var yBarchart = d3.scaleLinear()
 	        			.range([heightSub, 0]);
-
-
-	var keys4 = dataGroep.columns.slice(1);
 
 		dataGroep.forEach(function(d) {
 	        d["Toegang tot internet"] = +d["Toegang tot internet"];
@@ -205,5 +233,6 @@ function makeGroupBarchart(error, dataTotaal, dataGroep){
             .attr("dy", ".71em")
             .style("text-anchor", "end")
             .text("% van de heeft ");
+
 
 }

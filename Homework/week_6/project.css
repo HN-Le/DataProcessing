@@ -21,11 +21,25 @@
 }
 
 /* Style settings fpr the tooltip */
-div.tooldiv {
-  position: absolute;
-  text-align: center;
-  padding: 10px;
-  font: 12px sans-serif;
-  background: lightsteelblue;
-  border: 0px;
-}
+
+#tooltip {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      padding: 10px;
+      background-color: white;
+      border-radius: 10px;
+      pointer-events: none;
+    }
+
+
+#tooltip.hidden {
+    display: none;
+  }
+
+#tooltip p {
+   margin: 0;
+   font-family: Futura;
+   font-size: 16px;
+   line-height: 20px;
+ }
