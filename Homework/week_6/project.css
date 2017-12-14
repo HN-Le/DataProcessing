@@ -8,6 +8,18 @@
 */
 
 /* Style settings of the axe lines */
+
+#group {
+	float: left;
+}
+
+/* #barchart {
+	float: right;
+} */
+
+.bar:hover{
+    fill: lightsteelblue;
+}
 .axis path,
 .axis line {
   fill: none;
@@ -24,14 +36,11 @@
 
 #tooltip {
       position: absolute;
-      width: 200px;
-      height: auto;
       padding: 10px;
       background-color: white;
       border-radius: 10px;
       pointer-events: none;
     }
-
 
 #tooltip.hidden {
     display: none;
