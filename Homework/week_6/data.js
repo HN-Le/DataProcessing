@@ -2,12 +2,12 @@ var yearID;
 var categoryID;
 var groupID;
 
-var data;
 var data2013;
 var data2014;
 var data2015;
 var data2016;
 var data2017;
+
 
 function data(dataTotaal, dataGroep){
 
@@ -25,24 +25,16 @@ function data(dataTotaal, dataGroep){
 		var tablet = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Tablet"]}; });
 		var phone = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Mobiele telefoon of smartphone"]}; });
 
-		// 2013
-		var internetInterval = [ internet[0], internet[5], internet[10], internet[15] ]
-		var pcInterval = [ pc[0],pc[5], pc[10], pc[15] ]
-		var laptopInterval = [ laptop[0],laptop[5], laptop[10], laptop[15] ]
-		var tabletInterval = [ tablet[0],tablet[5], tablet[10], tablet[15] ]
-		var phoneInterval =[ phone[0],phone[5], phone[10], phone[15] ]
-
-		data = [internetInterval, pcInterval, laptopInterval,tabletInterval, phoneInterval]
-
 		var data2013 = returnData2013(internet, pc, laptop, tablet, phone);
 		var data2014 = returnData2014(internet, pc, laptop, tablet, phone);
 		var data2015 = returnData2015(internet, pc, laptop, tablet, phone);
 		var data2016 = returnData2016(internet, pc, laptop, tablet, phone);
 		var data2017 = returnData2017(internet, pc, laptop, tablet, phone);
 
-		makeGroupBarchart(dataTotaal, dataGroep, data)
-		makeBarchart(data)
-		
+		makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, data2016, data2017);
+
+		// make initial chart
+		makeBarchart(data2013);
 
 }
 
@@ -50,9 +42,8 @@ function retrieveClickedData(year, category, group){
 	yearID = year;
 	categoryID = category
 	groupID = group
-
-	console.log(yearID)
 }
+
 
 function returnData2013(internet, pc, laptop, tablet, phone){
 

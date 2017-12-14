@@ -1,9 +1,10 @@
-function makeGroupBarchart(dataTotaal, dataGroep, data){
+function makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, data2016, data2017){
 
 	var colourID;
 	var barID;
 	var categoryID;
 	var yearID;
+	var data;
 
     var svg = d3.select("#group"),
         margin = {top: 100, right: 300, bottom: 150, left: 50},
@@ -89,6 +90,31 @@ function makeGroupBarchart(dataTotaal, dataGroep, data){
 				yearID = d3.select(this.parentNode).attr("id");
 
 				retrieveClickedData(yearID, categoryID, colourID);
+
+				if (yearID ==0){
+					data = data2013
+					console.log("2013");
+				}
+
+				else if (yearID == 1) {
+					data = data2014
+					console.log("2014");
+				}
+
+				else if (yearID == 2) {
+					data = data2015
+					console.log("2015");
+				}
+
+				else if (yearID == 3) {
+					data = data2016
+					console.log("2016");
+				}
+
+				else {
+					data = data2017
+					console.log("2017");
+				}
 
 				update(data, categoryID, colourID )
 
