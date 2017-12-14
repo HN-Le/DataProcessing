@@ -90,6 +90,7 @@ function makeGroupBarchart(dataTotaal, dataGroep, data){
 
 				retrieveClickedData(yearID, categoryID, group);
 
+				// update(data, category, groupID )
 
 			})
 

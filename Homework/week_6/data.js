@@ -29,7 +29,6 @@ function data(dataTotaal, dataGroep){
 		var data2016 = returnData2016(internet, pc, laptop, tablet, phone);
 		var data2017 = returnData2017(internet, pc, laptop, tablet, phone);
 
-
 		makeGroupBarchart(dataTotaal, dataGroep, data)
 		makeBarchart(data)
 
@@ -39,32 +38,6 @@ function retrieveClickedData(year, category, group){
 	yearID = year;
 	categoryID = category
 	groupID = group
-
-
-
-	if (yearID == 0){
-		data = data2013
-	}
-
-	else if (yearID == 1){
-		data = data2014
-	}
-
-	else if (yearID == 2){
-		data = data2015
-	}
-
-	else if (yearID == 3){
-		data = data2016
-	}
-
-	else {
-		data = data2017
-	}
-
-	console.log(data)
-
-	update(data, category, groupID )
 }
 
 function returnData2013(internet, pc, laptop, tablet, phone){
