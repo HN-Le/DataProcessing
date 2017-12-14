@@ -34,7 +34,9 @@ function data(dataTotaal, dataGroep){
 		makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, data2016, data2017);
 
 		// make initial chart
-		makeBarchart(data2013);
+		var categoryText = "Toegang tot internet"
+		var categoryYear = " in 2013"
+		makeBarchart(data2013, categoryText, categoryYear);
 
 }
 

@@ -1,4 +1,4 @@
-function update(data, category, groupID){
+function update(data, category, groupID, categoryText){
 
 
 	var range = [ data[0][0].key, data[0][1].key, data[0][2].key, data[0][3].key ]

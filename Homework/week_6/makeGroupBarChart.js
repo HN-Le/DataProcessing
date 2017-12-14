@@ -5,6 +5,8 @@ function makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, 
 	var categoryID;
 	var yearID;
 	var data;
+	var categoryText;
+	var categoryYear;
 
     var svg = d3.select("#group"),
         margin = {top: 100, right: 300, bottom: 150, left: 50},
@@ -116,7 +118,7 @@ function makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, 
 					console.log("2017");
 				}
 
-				update(data, categoryID, colourID )
+				update(data, categoryID, colourID, categoryText, categoryYear)
 
 			})
 
@@ -158,7 +160,7 @@ function makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, 
             .attr("x", width + margin.right - 100)
             .attr("y", 9.5)
             .attr("dy", "0.32em")
-            .text(function(d) { return d; });
+            .text(function(d) { categoryText = d; return d; });
 
         // Make tittle
         chart.append("text")

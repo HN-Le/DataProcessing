@@ -1,4 +1,4 @@
-function makeBarchart(data){
+function makeBarchart(data, categoryText, categoryYear){
 
 	var svgSub = d3.select("#barchart"),
 		marginSub = {top: 100, right: 100, bottom: 150, left: 50},
@@ -75,5 +75,14 @@ function makeBarchart(data){
 
 					d3.select("#tooltip").classed("hidden", true);
 					})
+
+		// Make tittle
+		chartSub.append("text")
+			.attr("x", (widthSub / 2))
+			.attr("y", 10 - (marginSub.top / 2))
+			.attr("font-family", "sans-serif")
+			.attr("text-anchor", "middle")
+			.style("font-size", "20px")
+			.text(categoryText + categoryYear);
 
 }
