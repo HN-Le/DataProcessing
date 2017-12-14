@@ -54,7 +54,7 @@ function makeBarchart(data){
 				.attr("width", xBarchart.bandwidth() )
 		        .attr("y", function(d) { return yBarchart(d.value) } )
 	            .attr("height", function(d) { return (heightSub - yBarchart(d.value)) } )
-	            .attr("fill", function(d) { return colour(d.key) } )
+	            .attr("fill", "#1f77b4" )
 				.on("mouseover", function(d) {
 					d3.select("#tooltip")
 					.style("left", (d3.event.pageX) + "px")

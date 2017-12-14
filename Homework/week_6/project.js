@@ -32,13 +32,11 @@
 	 https://bl.ocks.org/sarubenfeld/56dc691df199b4055d90e66b9d5fc0d2
 */
 
-var colour = d3.scaleOrdinal(d3.schemeCategory10);
-
 queue()
 	.defer(d3.csv, 'totaal.csv')
 	.defer(d3.csv, 'groep.csv')
 	.await(pipeline)
 
 function pipeline(error, dataTotaal, dataGroep){
-	makeGroupBarchart(dataTotaal, dataGroep)
+	data(dataTotaal, dataGroep)
 }

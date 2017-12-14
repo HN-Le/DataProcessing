@@ -1,4 +1,5 @@
-function update(data){
+function update(data, category, groupID){
+
 
 	var range = [ data[0][0].key, data[0][1].key, data[0][2].key, data[0][3].key ]
 
@@ -27,7 +28,7 @@ function update(data){
 
 	var newBars = chartSub.selectAll(".bar")
 
-	newBars.data(data[1])
+	newBars.data(data[category])
 			.enter().append("rect")
 			.attr("class", "bar")
 			.attr("id", "singleBar")
@@ -35,7 +36,7 @@ function update(data){
 			.attr("width", xBarchart.bandwidth() )
 			.attr("y", function(d) { return yBarchart(d.value) } )
 			.attr("height", function(d) { return (heightSub - yBarchart(d.value)) } )
-			.attr("fill", function(d) { return colour(d.key) } )
+			.attr("fill", function(d) { return groupID } )
 			.on("mouseover", function(d) {
 				d3.select("#tooltip")
 				.style("left", (d3.event.pageX) + "px")
@@ -55,5 +56,6 @@ function update(data){
 
 				d3.select("#tooltip").classed("hidden", true);
 				})
+
 
 }

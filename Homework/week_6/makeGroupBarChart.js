@@ -1,6 +1,9 @@
-function makeGroupBarchart(dataTotaal, dataGroep){
+function makeGroupBarchart(dataTotaal, dataGroep, data){
 
 	var groupID;
+	var barID;
+	var categoryID;
+	var yearID;
 
     var svg = d3.select("#group"),
         margin = {top: 100, right: 300, bottom: 150, left: 50},
@@ -21,6 +24,14 @@ function makeGroupBarchart(dataTotaal, dataGroep){
     var y = d3.scaleLinear()
         .rangeRound([height, 0]);
 
+	var keys = dataTotaal.columns.slice(2);
+
+	x0.domain(dataTotaal.map(function(d) { return d.Perioden; }));
+	x1.domain(keys).rangeRound([0, x0.bandwidth()]);
+	y.domain([0, 100]);
+
+	var colour = d3.scaleOrdinal(d3.schemeCategory10);
+
 	// Tooltip
     var div = d3.select("body").append("div")
 	.attr("id" , "tooltip")
@@ -32,52 +43,18 @@ function makeGroupBarchart(dataTotaal, dataGroep){
 	var values = d3.select("div").append("p")
 	.attr("id", "value")
 
-    dataTotaal.forEach(function(d) {
-        d["Toegang tot internet"] = +d["Toegang tot internet"];
-        d["Personal Computer (PC) of desktop"] = +d["Personal Computer (PC) of desktop"];
-        d["Laptop of netbook"] = +d["Laptop of netbook"];
-        d["Tablet"] = +d["Tablet"];
-        d["Mobiele telefoon of smartphone"] = +d["Mobiele telefoon of smartphone"];
-        });
-
-        var keys = dataTotaal.columns.slice(2);
-
-        x0.domain(dataTotaal.map(function(d) { return d.Perioden; }));
-        x1.domain(keys).rangeRound([0, x0.bandwidth()]);
-        y.domain([0, 100]);
-
-
-		var internet = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Toegang tot internet"]}; });
-
-		var pc = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Personal Computer (PC) of desktop"]}; });
-
-		var laptop = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Laptop of netbook"]}; });
-
-		var tablet = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Tablet"]}; });
-
-		var phone = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Mobiele telefoon of smartphone"]}; });
-
-		var age = [ internet[0].key, internet[5].key, internet[10].key, internet[15].key ]
-
-		// 2013
-		var internetInterval = [ internet[0], internet[5], internet[10], internet[15] ]
-		var pcInterval = [ pc[0],pc[5], pc[10], pc[15] ]
-		var laptopInterval = [ laptop[0],laptop[5], laptop[10], laptop[15] ]
-		var tabletInterval = [ tablet[0],tablet[5], tablet[10], tablet[15] ]
-		var phoneInterval =[ phone[0],phone[5], phone[10], phone[15] ]
-
-		var dataTest = [internetInterval, pcInterval, laptopInterval,tabletInterval, phoneInterval]
-
         chart.append("g")
           .selectAll("g")
           .data(dataTotaal)
           .enter().append("g")
+		  	.attr("class", "groupBar")
+			.attr("id", function(d,i) { barID = i; return i } )
             .attr("transform", function(d) { return "translate(" + x0(d.Perioden) + ",0)"; })
           .selectAll(".bar")
           .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
           .enter().append("rect")
 		  	.attr("class", "bar")
-			.attr("id",function(d,i) { return i })
+			.attr("id", function(d,i) { yearID = i; return i; } )
             .attr("x", function(d) { return x1(d.key); })
             .attr("y", function(d) { return y(d.value); })
             .attr("width", x1.bandwidth())
@@ -104,8 +81,17 @@ function makeGroupBarchart(dataTotaal, dataGroep){
 
 				d3.select("#tooltip").classed("hidden", true);
 				})
-			.on("click", function(d,i) { groupID = i; update(dataTest); console.log("Click"); } );
+			.on("click", function(d,i) {
 
+				groupID = colour(d.key);
+
+				categoryID = d3.select(this).attr("id");
+				yearID = d3.select(this.parentNode).attr("id");
+
+				retrieveClickedData(yearID, categoryID, group);
+
+
+			})
 
         chart.append("g")
             .attr("class", "axis")
@@ -156,5 +142,4 @@ function makeGroupBarchart(dataTotaal, dataGroep){
             .style("font-size", "20px")
             .text("Internet faciliteiten in Nederlandse huishoudens");
 
-		makeBarchart(dataTest)
 }
