@@ -1,3 +1,14 @@
+var yearID;
+var categoryID;
+var groupID;
+
+var data;
+var data2013;
+var data2014;
+var data2015;
+var data2016;
+var data2017;
+
 function data(dataTotaal, dataGroep){
 
 	dataTotaal.forEach(function(d) {
@@ -31,6 +42,7 @@ function data(dataTotaal, dataGroep){
 
 		makeGroupBarchart(dataTotaal, dataGroep, data)
 		makeBarchart(data)
+		
 
 }
 
@@ -38,6 +50,8 @@ function retrieveClickedData(year, category, group){
 	yearID = year;
 	categoryID = category
 	groupID = group
+
+	console.log(yearID)
 }
 
 function returnData2013(internet, pc, laptop, tablet, phone){
@@ -156,14 +170,3 @@ function returnData2017(internet, pc, laptop, tablet, phone){
 
 	return data2017;
 }
-
-var yearID;
-var categoryID;
-var groupID;
-
-var data;
-var data2013;
-var data2014;
-var data2015;
-var data2016;
-var data2017;

@@ -1,6 +1,6 @@
 function makeGroupBarchart(dataTotaal, dataGroep, data){
 
-	var groupID;
+	var colourID;
 	var barID;
 	var categoryID;
 	var yearID;
@@ -83,14 +83,14 @@ function makeGroupBarchart(dataTotaal, dataGroep, data){
 				})
 			.on("click", function(d,i) {
 
-				groupID = colour(d.key);
+				colourID = colour(d.key);
 
 				categoryID = d3.select(this).attr("id");
 				yearID = d3.select(this.parentNode).attr("id");
 
-				retrieveClickedData(yearID, categoryID, group);
+				retrieveClickedData(yearID, categoryID, colourID);
 
-				// update(data, category, groupID )
+				update(data, categoryID, colourID )
 
 			})
 
