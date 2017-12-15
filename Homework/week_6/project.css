@@ -7,15 +7,12 @@
 	 11130717
 */
 
-/* Style settings of the axe lines */
-
-#group {
-	float: left;
+#info{
+	display: none;
+	font-family: Futura;
+    font-size: 16px;
+    line-height: 20px;
 }
-
-/* #barchart {
-	float: right;
-} */
 
 .bar:hover{
     fill: lightsteelblue;

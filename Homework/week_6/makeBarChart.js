@@ -43,7 +43,7 @@ function makeBarchart(data, categoryText, categoryYear){
 		        .attr("y", 6)
 		        .attr("dy", ".71em")
 		        .style("text-anchor", "end")
-		        .text("% van de heeft ");
+		        .text("% van deze bevolkingsgroep heeft ");
 
 		chartSub.selectAll(".bar")
 	        .data(data[0])
@@ -80,9 +80,21 @@ function makeBarchart(data, categoryText, categoryYear){
 		chartSub.append("text")
 			.attr("x", (widthSub / 2))
 			.attr("y", 10 - (marginSub.top / 2))
+			.attr("id", "catergoryText")
 			.attr("font-family", "sans-serif")
 			.attr("text-anchor", "middle")
 			.style("font-size", "20px")
-			.text(categoryText + categoryYear);
+			.text(categoryText);
+
+
+		// Make tittle
+		chartSub.append("text")
+			.attr("x", (widthSub / 2))
+			.attr("y", -15)
+			.attr("id", "catergoryYear")
+			.attr("font-family", "sans-serif")
+			.attr("text-anchor", "middle")
+			.style("font-size", "20px")
+			.text(categoryYear);
 
 }

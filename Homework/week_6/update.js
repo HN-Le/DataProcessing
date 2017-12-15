@@ -1,4 +1,4 @@
-function update(data, category, groupID, categoryText){
+function update(data, category, groupID, categoryText, categoryYear){
 
 
 	var range = [ data[0][0].key, data[0][1].key, data[0][2].key, data[0][3].key ]
@@ -53,9 +53,29 @@ function update(data, category, groupID, categoryText){
 				d3.select("#tooltip").classed("hidden", false);
 			   })
 			.on("mouseout", function() {
-
 				d3.select("#tooltip").classed("hidden", true);
 				})
 
+		d3.select("#catergoryText").remove()
+		d3.select("#catergoryYear").remove()
 
+		// Make tittle
+		chartSub.append("text")
+			.attr("x", (widthSub / 2))
+			.attr("y", 10 - (marginSub.top / 2))
+			.attr("id", "catergoryText")
+			.attr("font-family", "sans-serif")
+			.attr("text-anchor", "middle")
+			.style("font-size", "20px")
+			.text(categoryText[categoryID]);
+
+			// Make tittle
+			chartSub.append("text")
+				.attr("x", (widthSub / 2))
+				.attr("y", -15)
+				.attr("id", "catergoryYear")
+				.attr("font-family", "sans-serif")
+				.attr("text-anchor", "middle")
+				.style("font-size", "20px")
+				.text(categoryYear[yearID]);
 }

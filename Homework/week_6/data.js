@@ -35,7 +35,7 @@ function data(dataTotaal, dataGroep){
 
 		// make initial chart
 		var categoryText = "Toegang tot internet"
-		var categoryYear = " in 2013"
+		var categoryYear = "2013"
 		makeBarchart(data2013, categoryText, categoryYear);
 
 }

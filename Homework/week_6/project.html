@@ -22,19 +22,50 @@ Tiny Le
         <script src="//d3js.org/d3.v4.min.js"></script>
         <script src="//d3js.org/queue.v1.min.js"></script>
 
+
         <!-- Own Script -->
 		<script src="project.js"></script>
 		<script src="data.js"></script>
 		<script src="makeGroupBarChart.js"></script>
 		<script src="makeBarChart.js"></script>
         <script src="update.js"></script>
+		<script src="showDescription.js"></script>
 
     </head>
 
     <body>
-		<!-- SVG's -->
-        <svg width="900" height="600" id="group" ></svg>
-        <svg width="900" height="600" id= "barchart"></svg>
+		<table style="width:80%">
+	  	<tr>
+		    <td><svg width="900" height="600" id="group" ></svg></td>
+		    <td><svg width="500" height="600" id= "barchart"></svg></td>
+		</tr>
+		<tr>
+			<td><button onclick="showDescription()" type="button" id="year2017" class="btn btn-outline-primary">See description</button></td>
+
+		</tr>
+		<tr>
+			<td>
+			<p id="info">
+
+			Internet is niet weg te denken in de huidige samenleving maar is dat wel zo voor iedereen?
+			Is er wat veranderd door de jaren heen?
+			<br>
+			In deze grafiek zie je voor hoeveel procent van de bevolking
+			toegang had tot het internet en de apparaten die toegang geven tot het internet.
+			<br>
+			Klik op de bars van de grafiek links voor de informatie per bevolkingsgroep
+
+			<br>
+			<br>
+
+			<a href="http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=83429NED&D1=0,2-5&D2=0,3-6&D3=0&D4=a&HDR=T&STB=G1,G2,G3&VW=T">Bron: CBS</a>
+
+			<br>
+			Gemaakt door: Tiny Le - 4105834
+		</td>
+	</p>
+		</tr>
+		</table>
 
     </body>
 
