@@ -1,3 +1,18 @@
+/*
+	Dataprocessing
+	Tiny Le
+	11130717
+
+	Week 6: Linked Views
+	Creating a linked views visualization
+
+	Aim is to make a general group barchart about the data and when clicked on a bar, that specific group will be viewed
+	in the bar chart below for that year.
+
+	Function to send all the data to the functions and start the inital graphs
+
+*/
+
 var yearID;
 var categoryID;
 var groupID;
