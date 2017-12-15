@@ -40,11 +40,11 @@ function data(dataTotaal, dataGroep){
 		var tablet = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Tablet"]}; });
 		var phone = dataGroep.map(function(key, i) { return {key: dataGroep[i]["Kenmerken personen"], value: dataGroep[i]["Mobiele telefoon of smartphone"]}; });
 
-		var data2013 = returnData2013(internet, pc, laptop, tablet, phone);
-		var data2014 = returnData2014(internet, pc, laptop, tablet, phone);
-		var data2015 = returnData2015(internet, pc, laptop, tablet, phone);
-		var data2016 = returnData2016(internet, pc, laptop, tablet, phone);
-		var data2017 = returnData2017(internet, pc, laptop, tablet, phone);
+		data2013 = returnData2013(internet, pc, laptop, tablet, phone);
+		data2014 = returnData2014(internet, pc, laptop, tablet, phone);
+		data2015 = returnData2015(internet, pc, laptop, tablet, phone);
+		data2016 = returnData2016(internet, pc, laptop, tablet, phone);
+		data2017 = returnData2017(internet, pc, laptop, tablet, phone);
 
 		makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, data2016, data2017);
 

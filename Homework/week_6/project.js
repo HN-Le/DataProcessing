@@ -9,15 +9,7 @@
 	Aim is to make a general group barchart about the data and when clicked on a bar, that specific group will be viewed
 	in the bar chart below for that year.
 
-	Still lots to be done ...
-
-	- Functioning linked view
-	- Bootstrap
-	- All text (extra info, etx)
-	- Source linking
-	- Design report
-	- Proper commenting
-	- Layout
+	This function serves as a main point where de data gets loaded in where everything starts.
 
 	 Data Source:
 	 http://statline.cbs.nl/Statweb/publication/?DM=SLNL&PA=83429NED&D1=0,2-5&D2=0,3-6&D3=0&D4=a&HDR=T&STB=G1,G2,G3&VW=T

@@ -110,27 +110,23 @@ function makeGroupBarchart(dataTotaal, dataGroep, data2013, data2014, data2015, 
 
 				if (yearID ==0){
 					data = data2013
-					console.log("2013");
 				}
 
 				else if (yearID == 1) {
 					data = data2014
-					console.log("2014");
 				}
 
 				else if (yearID == 2) {
 					data = data2015
-					console.log("2015");
+
 				}
 
 				else if (yearID == 3) {
 					data = data2016
-					console.log("2016");
 				}
 
 				else {
 					data = data2017
-					console.log("2017");
 				}
 
 				update(data, categoryID, colourID, categoryText, categoryYear)
